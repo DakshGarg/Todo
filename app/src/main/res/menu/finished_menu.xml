@@ -8,7 +8,4 @@
         app:showAsAction="never"
         />
 
-    <item
-        android:title="Feedback"
-        android:id="@+id/emailus"/>
 </menu>

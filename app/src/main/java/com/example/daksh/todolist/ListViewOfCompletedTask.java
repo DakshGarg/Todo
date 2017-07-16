@@ -140,6 +140,12 @@ public class ListViewOfCompletedTask extends AppCompatActivity implements TodoAd
             itemList.add(t);
 
         }
+            if(listAdapter.getCount()==0){
+                listView.setBackgroundResource(R.drawable.finished);
+            }
+            else{
+                listView.setBackgroundResource(0);
+            }
         listAdapter.notifyDataSetChanged();
     }
 
@@ -211,6 +217,6 @@ public class ListViewOfCompletedTask extends AppCompatActivity implements TodoAd
         i.putExtra("time",time);
         i.putExtra("id",id);
         PendingIntent pendingIntent=PendingIntent.getBroadcast(this,id,i,0);
-        am.set(AlarmManager.RTC,longTime,pendingIntent);
+        am.set(AlarmManager.RTC_WAKEUP,longTime,pendingIntent);
     }
 }

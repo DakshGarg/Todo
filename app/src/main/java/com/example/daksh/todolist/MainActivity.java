@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,15 +45,16 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
     ArrayAdapter<String> spinnerAdapter;
     Toolbar toolbar;
     String category;
+
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_collapsing_toolbar);
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("");
-        spinner=(Spinner)findViewById(R.id.selectedCategories);
-        spinnerArrayList=new ArrayList<>();
+        spinner = (Spinner) findViewById(R.id.selectedCategories);
+        spinnerArrayList = new ArrayList<>();
         spinnerArrayList.add("All Lists");
         spinnerArrayList.add("Default");
         spinnerArrayList.add("Birthday");
@@ -58,19 +62,18 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
         spinnerArrayList.add("Shopping");
         spinnerArrayList.add("Wishlist");
         spinnerArrayList.add("Work");
-        spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, spinnerArrayList);
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArrayList);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0 )
-                {
+
+                if (position == 0) {
                     addNewTask();
-                }
-                else{
-                  category=spinner.getSelectedItem().toString();
-                  //  Log.i("check",category);
+                } else {
+                    category = spinner.getSelectedItem().toString();
+                    //  Log.i("check",category);
                     displayParticularCategoryItems(category);
                 }
 
@@ -81,39 +84,39 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
 
             }
         });
-        floatingActionButton=(FloatingActionButton)findViewById(R.id.newTaskButton);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.newTaskButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this,TodoDetailsByNewTask.class);
-                startActivityForResult(i,IntentConstant.FROMNEWTASK);
+                Intent i = new Intent(MainActivity.this, TodoDetailsByNewTask.class);
+                startActivityForResult(i, IntentConstant.FROMNEWTASK);
             }
         });
 
-     //  searchBar = (EditText) findViewById(R.id.searchBar);
+        //  searchBar = (EditText) findViewById(R.id.searchBar);
 
         listView = (ListView) findViewById(R.id.listView);
-        itemList=new ArrayList<>();
+        itemList = new ArrayList<>();
 
 
-        listAdapter = new TodoAdapter(this, R.layout.listview_item, itemList,false);
+        listAdapter = new TodoAdapter(this, R.layout.listview_item, itemList, false);
         listAdapter.setOnListButtonClickedListener(this);
 
 
-       listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+      /*  listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Delete");
                 builder.setMessage("Are you sure you want to delete this task?");
 
                 builder.setPositiveButton("YES", new AlertDialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                     TodoOpenHelper todoOpenHelper=new TodoOpenHelper(MainActivity.this);
-                      final  SQLiteDatabase database=todoOpenHelper.getWritableDatabase();
-                        database.delete(TodoOpenHelper.TODO_TABLE_NAME,TodoOpenHelper.TODO_ID+"="+(itemList.get(position).id),null);
+                        TodoOpenHelper todoOpenHelper = new TodoOpenHelper(MainActivity.this);
+                        final SQLiteDatabase database = todoOpenHelper.getWritableDatabase();
+                        database.delete(TodoOpenHelper.TODO_TABLE_NAME, TodoOpenHelper.TODO_ID + "=" + (itemList.get(position).id), null);
                         alarmCancel(itemList.get(position).id);
                         addNewTask();
                     }
@@ -126,12 +129,12 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
                 });
 
 
-                AlertDialog dialog=builder.create();
+                AlertDialog dialog = builder.create();
                 dialog.show();
 
                 return true;
             }
-        });
+        });*/
         listView.setAdapter(listAdapter);
 
 //        searchBar.addTextChangedListener(new TextWatcher() {
@@ -157,16 +160,78 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i=new Intent(MainActivity.this,TodoDetails.class);
-                i.putExtra(IntentConstant.TODO_POSITION,itemList.get(position).id);
-                startActivityForResult(i,IntentConstant.FROMEXITINGTASK);
+                Intent i = new Intent(MainActivity.this, TodoDetails.class);
+                i.putExtra(IntentConstant.TODO_POSITION, itemList.get(position).id);
+                startActivityForResult(i, IntentConstant.FROMEXITINGTASK);
             }
         });
+
+
+        registerForContextMenu(listView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.listView) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.long_click_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+       final int position=info.position;
+        int id = item.getItemId();
+        if(id==R.id.deleteOnLongClick){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Delete");
+            builder.setMessage("Are you sure you want to delete this task?");
+
+            builder.setPositiveButton("YES", new AlertDialog.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    TodoOpenHelper todoOpenHelper = new TodoOpenHelper(MainActivity.this);
+                    final SQLiteDatabase database = todoOpenHelper.getWritableDatabase();
+                    database.delete(TodoOpenHelper.TODO_TABLE_NAME, TodoOpenHelper.TODO_ID + "=" + (itemList.get(position).id), null);
+                    alarmCancel(itemList.get(position).id);
+                    addNewTask();
+                }
+            });
+            builder.setNegativeButton("CANCEL", new AlertDialog.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+        else if(id==R.id.shareOnLongClick){
+            Intent shareIntent=new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Task Details");
+            long dateTime=itemList.get(position).date_time;
+            String date= new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date (dateTime));
+           String time=new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date (dateTime));
+            String information="Title : "+itemList.get(position).title+"\n\nDate : "+date+"\n\nTime : "+time+
+            "\n\nCategory : "+itemList.get(position).category;
+            shareIntent.putExtra(Intent.EXTRA_TEXT,information);
+            startActivity(Intent.createChooser(shareIntent,"Share via"));
+        }
+        return true;
 
 
     }
 
 
+
+////////////////////////////////////
      @Override
     protected void onStart() {
         addNewTask();
@@ -238,6 +303,12 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
             itemList.add(t);
 
         }
+        if(listAdapter.getCount()==0){
+            listView.setBackgroundResource(R.drawable.todobackground);
+        }
+        else{
+            listView.setBackgroundResource(0);
+        }
         listAdapter.notifyDataSetChanged();
 
     }
@@ -298,6 +369,12 @@ public class MainActivity extends AppCompatActivity implements TodoAdapter.OnLis
             Todo t=new Todo(id,title,date,time,category,priority,date_time);
             itemList.add(t);
 
+        }
+        if(listAdapter.getCount()==0){
+            listView.setBackgroundResource(R.drawable.todobackground);
+        }
+        else{
+            listView.setBackgroundResource(0);
         }
         listAdapter.notifyDataSetChanged();
 

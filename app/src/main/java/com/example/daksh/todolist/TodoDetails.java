@@ -272,7 +272,7 @@ public class TodoDetails extends AppCompatActivity {
             i.putExtra("id",id);
             PendingIntent pendingIntent=PendingIntent.getBroadcast(TodoDetails.this,id,i,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            am.set(AlarmManager.RTC,longTime,pendingIntent);
+            am.set(AlarmManager.RTC_WAKEUP,longTime,pendingIntent);
 
 
             TodoOpenHelper todoOpenHelper = new TodoOpenHelper(TodoDetails.this);

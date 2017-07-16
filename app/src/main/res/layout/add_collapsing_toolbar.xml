@@ -4,15 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+
+        >
+
         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-            app:popupTheme="@style/PopupMenuStyle"
                 android:layout_width="match_parent"
+            app:popupTheme="@style/PopupMenuStyle"
                 app:layout_collapseMode="pin"
                 android:background="@android:color/transparent"
                 android:layout_height="?attr/actionBarSize">
@@ -27,7 +31,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:popupBackground="@android:color/holo_blue_light"
+                android:popupBackground="#2196F3"
                 android:id="@+id/selectedCategories">
             </Spinner>
             </android.support.v7.widget.Toolbar>
@@ -50,7 +54,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="24dp"
         android:layout_marginRight="24dp"
-        app:backgroundTint="@android:color/holo_blue_light"
+        app:backgroundTint="#2196F3"
         android:src="@drawable/add"
         app:layout_anchor="@id/main_layout"
         app:layout_anchorGravity="bottom|right" />

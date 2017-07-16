@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class TodoAdapter extends ArrayAdapter<Todo> {
     ArrayList<Todo> todoArrayList;
     OnListCheckBoxClickedListener listener;
     boolean flag;
+
 
     public void setOnListButtonClickedListener(OnListCheckBoxClickedListener listener){
         this.listener = listener;
@@ -80,6 +82,7 @@ public class TodoAdapter extends ArrayAdapter<Todo> {
                     ,TodoPriorityTextView,checkBox);
             convertView.setTag(todoViewHolder);
         }
+
         final TodoViewHolder todoViewHolder = (TodoViewHolder) convertView.getTag();
 
         if(todoViewHolder.checkBox.isChecked())
@@ -100,24 +103,31 @@ public class TodoAdapter extends ArrayAdapter<Todo> {
         if(t.priority.equals("High"))
         {
             todoViewHolder.TodoPriorityTextView.setBackgroundResource(R.color.high);
+            todoViewHolder.TodoPriorityTextView.setText("H");
+            todoViewHolder.TodoPriorityTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            todoViewHolder.TodoPriorityTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
         else if(t.priority.equals("Medium"))
         {
             todoViewHolder.TodoPriorityTextView.setBackgroundResource(R.color.medium);
+            todoViewHolder.TodoPriorityTextView.setText("M");
+            todoViewHolder.TodoPriorityTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            todoViewHolder.TodoPriorityTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
         else{
-            todoViewHolder.TodoPriorityTextView.setBackgroundResource(R.color.low);
+          todoViewHolder.TodoPriorityTextView.setBackgroundResource(R.color.low);
+            todoViewHolder.TodoPriorityTextView.setText("L");
+            todoViewHolder.TodoPriorityTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            todoViewHolder.TodoPriorityTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
         if(System.currentTimeMillis()>longTime)
         {
             todoViewHolder.TodoDateTextView.setTextColor(ContextCompat.getColor(context, R.color.red));
             todoViewHolder.TodoTitleTextView.setTextColor(ContextCompat.getColor(context, R.color.greyy));
-            todoViewHolder.TodoPriorityTextView.setTextColor(ContextCompat.getColor(context, R.color.greyy));
         }
         else{
             todoViewHolder.TodoDateTextView.setTextColor(ContextCompat.getColor(context, R.color.blue));
             todoViewHolder.TodoTitleTextView.setTextColor(ContextCompat.getColor(context, R.color.black));
-            todoViewHolder.TodoPriorityTextView.setTextColor(ContextCompat.getColor(context, R.color.greyy));
         }
         todoViewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
 

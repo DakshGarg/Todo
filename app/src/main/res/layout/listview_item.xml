@@ -4,7 +4,8 @@
     app:contentPaddingLeft="2dp"
     app:contentPaddingTop="2dp"
     app:contentPaddingBottom="2dp"
-    android:elevation="20dp"
+
+
 
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -12,6 +13,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
 
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="10"
@@ -36,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20dp"
-
+        android:textStyle="normal"
         android:gravity="left|center"
         android:layout_marginLeft="3dp"
         android:textColor="@android:color/background_dark"
@@ -73,6 +75,8 @@
         android:layout_width="0dp"
         android:id="@+id/priorityTextView"
         android:layout_height="match_parent"
+        android:paddingTop="22dp"
+        android:textStyle="bold"
         android:layout_weight=".5"
         />
 

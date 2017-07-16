@@ -28,7 +28,7 @@ public class ReceiverCalledAfterBoot extends BroadcastReceiver {
                 i.putExtra("time", time);
                 i.putExtra("id", id);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, i, 0);
-                am.set(AlarmManager.RTC, date_time, pendingIntent);
+                am.set(AlarmManager.RTC_WAKEUP, date_time, pendingIntent);
             }
         }
 

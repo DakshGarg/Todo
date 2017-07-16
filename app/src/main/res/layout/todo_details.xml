@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light"
+        android:background="@color/lightPink"
         android:orientation="vertical">
 
         <LinearLayout
@@ -25,10 +25,10 @@
                     android:layout_height="35dp"
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="25dp"
-                    android:background="@android:color/background_light"
+                    android:background="@color/lightPink"
                     android:scaleType="fitCenter"
                     android:src="@drawable/title1"
-                    android:tint="@android:color/holo_blue_dark" />
+                    android:tint="#2196F3" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -40,7 +40,7 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginTop="35dp"
                     android:text="What is to be done?"
-                    android:textColor="@android:color/holo_blue_dark"
+                    android:textColor="#2196F3"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -72,10 +72,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
-                android:background="@android:color/background_light"
+                android:background="@color/lightPink"
                 android:scaleType="fitCenter"
                 android:src="@drawable/date"
-                android:tint="@android:color/holo_blue_dark" />
+                android:tint="#2196F3" />
 
             <EditText
                 android:id="@+id/todoDetailDateEditText"
@@ -100,10 +100,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="13dp"
-                android:background="@android:color/background_light"
+                android:background="@color/lightPink"
                 android:scaleType="fitCenter"
                 android:src="@drawable/time2"
-                android:tint="@android:color/holo_blue_dark" />
+                android:tint="#2196F3" />
 
             <EditText
                 android:id="@+id/todoDetailTimeEditText"
@@ -134,10 +134,10 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:background="@android:color/background_light"
+                    android:background="@color/lightPink"
                     android:scaleType="fitCenter"
                     android:src="@drawable/caetgory2"
-                    android:tint="@android:color/holo_blue_dark" />
+                    android:tint="#2196F3" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                     android:layout_marginTop="15dp"
                     android:text="Category"
 
-                    android:textColor="@android:color/holo_blue_dark"
+                    android:textColor="#2196F3"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -177,17 +177,17 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:background="@android:color/background_light"
+                    android:background="@color/lightPink"
                     android:scaleType="fitCenter"
                     android:src="@drawable/priority"
-                    android:tint="@android:color/holo_blue_dark" />
+                    android:tint="#2196F3" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="Priority"
-                    android:textColor="@android:color/holo_blue_dark"
+                    android:textColor="#2196F3"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 

@@ -250,7 +250,7 @@ public class TodoDetailsByNewTask extends AppCompatActivity {
             i.putExtra("id",cursor.getInt(cursor.getColumnIndex(TodoOpenHelper.TODO_ID)));
             PendingIntent pendingIntent=PendingIntent.getBroadcast(TodoDetailsByNewTask.this,
                     cursor.getInt(cursor.getColumnIndex(TodoOpenHelper.TODO_ID)),i,0);
-            am.set(AlarmManager.RTC,longTime,pendingIntent);
+            am.set(AlarmManager.RTC_WAKEUP,longTime,pendingIntent);
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             finish();
